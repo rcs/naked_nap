@@ -3,9 +3,13 @@ require 'multi_json'
 
 class NakedNap
   # Define the class that NakedNap will wrap
-  def initialize(target_class)
-    raise ArgumentError unless target_class.respond_to? :new
-    @target_class = target_class
+  def initialize(target_class = nil, &block)
+    if block_given?
+      @target_obj = block
+    else
+      raise ArgumentError unless target_class.respond_to? :new
+      @target_obj = lambda { target_class.new }
+    end
   end
 
   # Interface for rack, called with the request environment
@@ -13,7 +17,7 @@ class NakedNap
     request = Rack::Request.new(env)
 
     # Set up the method and parameters to call
-    target = @target_class.new
+    target = @target_obj.call
     method, *args = extract_arguments(request)
 
     return [404, {'Content-Type' => 'text/plain'}, "No index defined"] unless method

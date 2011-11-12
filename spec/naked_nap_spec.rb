@@ -29,8 +29,12 @@ describe NakedNap do
     app.should_not be_nil
   end
 
+  it "instantiates with a code block for initializer" do
+    app = NakedNap.new { TestClass.new }
+  end
+
   def app
-    NakedNap.new(TestClass)
+    NakedNap.new { TestClass.new }
   end
 
   # TODO bare slash case
