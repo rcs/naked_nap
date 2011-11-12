@@ -39,6 +39,7 @@ describe NakedNap do
 
   # TODO bare slash case
   describe "Argument parsing" do
+    # Using "acceptable" method signatures from http://www.slideshare.net/btguthrie/advanced-ruby-idioms-so-clean-you-can-eat-off-of-them
     it "handles zero arguments" do
       get '/mirror'
       MultiJson.decode(last_response.body).should == ['mirror',[]]
