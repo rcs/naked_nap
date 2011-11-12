@@ -37,7 +37,7 @@ class NakedNap
       log e
       [500, {'Content-Type' => 'text/plain'}, "Something went wrong."]
     else
-      [200, {'Content-Type' => 'application/json'}, body]
+      [200, {'Content-Type' => 'application/json'}, [body]]
     end
   end
 
