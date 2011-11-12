@@ -4,6 +4,7 @@ require 'multi_json'
 class NakedNap
   # Define the class that NakedNap will wrap
   def initialize(target_class)
+    raise ArgumentError unless target_class.respond_to? :new
     @target_class = target_class
   end
 
@@ -51,9 +52,4 @@ class NakedNap
   def log(*stuff)
     $stderr.puts stuff
   end
-end
-
-require 'rack/test'
-def get_rack_test
-  Rack::Test::Session.new(Rack::MockSession.new(NakedNap.new))
 end
