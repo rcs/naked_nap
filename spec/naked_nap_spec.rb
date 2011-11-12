@@ -11,6 +11,10 @@ class TestClass
   def onearg(one)
     one
   end
+
+  def broken_method
+    this_call_wont_work
+  end
 end
 
 describe NakedNap do
@@ -71,6 +75,11 @@ describe NakedNap do
     it "returns 400 for too many args" do
       get '/onearg/1/2'
       last_response.status.should == 400
+    end
+
+    it "returns 500 for a broken backend implementation" do
+      get '/broken_method'
+      last_response.status.should == 500
     end
   end
 end
