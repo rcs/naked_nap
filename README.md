@@ -20,7 +20,8 @@ end
 run NakedNap.new Caeser
 ```
 ``` shell
-curl http://localhost:9292/rot13/kitties
+$ rackup
+$ curl http://localhost:9292/rot13/kitties
 # => "xvggvrf"
 # Quotation marks come from json encoding
 ```
